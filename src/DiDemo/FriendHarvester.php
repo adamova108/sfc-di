@@ -12,26 +12,19 @@ use DiDemo\Mailer\SmtpMailer;
 class FriendHarvester
 {
     private \PDO $pdo;
-    private array $smtpConfig;
+    private SmtpMailer $mailer;
 
-    public function __construct(\PDO $pdo, array $smtpConfig)
+    public function __construct(\PDO $pdo, SmtpMailer $mailer)
     {
         $this->pdo = $pdo;
-        $this->smtpConfig = $smtpConfig;
+        $this->mailer = $mailer;
     }
 
     public function emailFriends()
     {
-        $mailer = new SmtpMailer(
-            $this->smtpConfig['server'],
-            $this->smtpConfig['user'],
-            $this->smtpConfig['password'],
-            $this->smtpConfig['port']
-        );
-
         $sql = 'SELECT * FROM people_to_spam';
         foreach ($this->pdo->query($sql) as $row) {
-            $mailer->sendMessage(
+            $this->mailer->sendMessage(
                 $row['email'],
                 'Yay! We want to send you money for no reason!',
                 sprintf(<<<EOF
