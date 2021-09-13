@@ -5,7 +5,7 @@ namespace DiDemo\Mailer;
 /**
  * Sends emails via SMTP
  */
-class SmtpMailer
+class SmtpMailer implements MailerInterface
 {
     private $hostname;
 

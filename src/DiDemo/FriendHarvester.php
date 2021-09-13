@@ -2,7 +2,7 @@
 
 namespace DiDemo;
 
-use DiDemo\Mailer\SmtpMailer;
+use DiDemo\Mailer\MailerInterface;
 
 /**
  * This is a SERVICE CLASS as it performs a SERVICE
@@ -12,9 +12,9 @@ use DiDemo\Mailer\SmtpMailer;
 class FriendHarvester
 {
     private \PDO $pdo;
-    private SmtpMailer $mailer;
+    private MailerInterface $mailer;
 
-    public function __construct(\PDO $pdo, SmtpMailer $mailer)
+    public function __construct(\PDO $pdo, MailerInterface $mailer)
     {
         $this->pdo = $pdo;
         $this->mailer = $mailer;
