@@ -36,7 +36,7 @@ class SmtpMailer
         // dummy implementation - this class is just used as an example
 
         // hack - just log something so we can see it
-        $logPath = __DIR__.'/../../../logs/mail.log';
+        $logPath = 'logs/mail.log';
         $logLines = array();
         $logLines[] = sprintf(
             '[%s][%s:%s@%s:%s][From: %s][To: %s][Subject: %s]',
@@ -52,6 +52,10 @@ class SmtpMailer
         $logLines[] = '---------------';
         $logLines[] = $message;
         $logLines[] = '---------------';
+
+        if (!file_exists($logPath)) {
+            mkdir('logs', 0777);
+        }
 
         $fh = fopen($logPath, 'a');
         fwrite($fh, implode("\n", $logLines)."\n");
