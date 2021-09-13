@@ -12,15 +12,22 @@ use DiDemo\Mailer\SmtpMailer;
 class FriendHarvester
 {
     private \PDO $pdo;
+    private array $smtpConfig;
 
-    public function __construct(\PDO $pdo)
+    public function __construct(\PDO $pdo, array $smtpConfig)
     {
         $this->pdo = $pdo;
+        $this->smtpConfig = $smtpConfig;
     }
 
     public function emailFriends()
     {
-        $mailer = new SmtpMailer('smtp.SendMoneyToStrangers.com', 'smtpuser', 'smtppass', '465');
+        $mailer = new SmtpMailer(
+            $this->smtpConfig['server'],
+            $this->smtpConfig['user'],
+            $this->smtpConfig['password'],
+            $this->smtpConfig['port']
+        );
 
         $sql = 'SELECT * FROM people_to_spam';
         foreach ($this->pdo->query($sql) as $row) {
