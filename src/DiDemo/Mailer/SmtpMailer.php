@@ -40,7 +40,8 @@ class SmtpMailer implements MailerInterface
         $logLines = array();
         $logLines[] = sprintf(
             '[%s][%s:%s@%s:%s][From: %s][To: %s][Subject: %s]',
-            date('Y-m-d H:i:s'),
+            // Used to be date('Y-m-d H:i:s') --- PERFORMANCE??
+            (new \DateTime())->setTimezone(new \DateTimeZone('Europe/Budapest'))->format('Y-m-d H:i:s'),
             $this->user,
             $this->pass,
             $this->hostname,
