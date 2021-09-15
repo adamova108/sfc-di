@@ -8,6 +8,29 @@ require __DIR__ . '/vendor/autoload.php';
 
 /*** START DI CONTAINER ***/
 
+/*** Subclass version --- has to come before instantiation ***/
+
+/*class AsdAsd extends Pimple {
+
+    // 1. The return type version
+
+    public function gFH(): FriendHarvester
+    {
+        return $this->offsetGet('friend_harvester');
+    }
+
+    // 2. the PHPDoc version
+
+    /**
+     *  @return FriendHarvester
+     *
+    public function gFH()
+    {
+        return $this->offsetGet('friend_harvester');
+    }
+}
+
+$container = new AsdAsd();*/
 $container = new Pimple();
 
 require_once __DIR__ . '/app/config.php';
@@ -19,12 +42,15 @@ require_once __DIR__ . '/app/services.php';
 //$friendHarvester = $container['friend_harvester'];
 //$friendHarvester->emailFriends();
 
-///** @var FriendHarvester $friendHarvester */
-//$friendHarvester = $container['friend_harvester'];
+/** @var FriendHarvester $friendHarvester */
+$friendHarvester = $container['friend_harvester'];
+$friendHarvester->emailFriends();
+
+//$friendHarvester = $container->gFH();
 //$friendHarvester->emailFriends();
 
-/** TODO: Create (1) a separate class AND (2) a SubClass version of the container
- *        to test IDE autocompletion that ways as well
+/**
+ *  "Another common tactic is to create an object or sub-class the container and add specific methods that return different services and      have proper PHPDoc on them. I won't show it here, but imagine we've sub-classed the Pimple class and added a getFriendHarvester()        method which has a proper @return PHPDoc on it."
  */
 
 /*
