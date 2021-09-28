@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Pimple $container
+ */
 
 use DiDemo\FriendHarvester;
 use DiDemo\Mailer\SmtpMailer;
@@ -17,6 +20,6 @@ $container['friend_harvester'] = $container->share(static function (Pimple $cont
 });
 
 $container['pdo'] = $container->share(static function (Pimple $container) {
-    $dsn = 'sqlite:' . __DIR__ . '/data/database.sqlite';
+	//$dsn = 'sqlite:' . __DIR__ . '/data/database.sqlite';
     return new PDO($container['database.dsn']);
 });
